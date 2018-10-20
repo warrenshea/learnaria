@@ -82,9 +82,9 @@
 				})
 				.on('blur', function(event) {
 					if (!$tooltip.hasClass('mouseover') ) { // hide tooltip if mouse is not over the current element (Criteria 3)
-					$tooltip
-						.attr({'aria-hidden': 'true'})
-						.removeClass('visible');
+						$tooltip
+							.attr({'aria-hidden': 'true'})
+							.removeClass('visible');
 					}
 				})
 				.on('keyup', function(event) {
@@ -92,7 +92,7 @@
 						$tooltip
 							.attr({'aria-hidden': 'true'})
 							.removeClass('visible');
-						}
+					}
 				});
 		}
 	};
