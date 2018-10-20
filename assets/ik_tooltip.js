@@ -38,13 +38,13 @@
 				.addClass('ik_tooltip')
 				.attr({
 					'id': id,
-	        'role': 'tooltip', // assign tooltip role
-	        'aria-hidden': 'true', // hide it from screen reader to prevent it from been read twice
-	        'aria-live': 'polite' // make it live region
+			 'role': 'tooltip', // assign tooltip role
+			 'aria-hidden': 'true', // hide it from screen reader to prevent it from been read twice
+			 'aria-live': 'polite' // make it live region
 				});
 
 			$elem
-		    .attr({'tabindex': 0 }) // add tab order
+				.attr({'tabindex': 0 }) // add tab order
 				.css('position', 'relative')
 				.removeAttr('title') // remove title to prevent it from being read
 				.after($tooltip)
@@ -66,7 +66,7 @@
 					}
 
 					$tooltip // position and show tooltip
-        		.attr({'aria-hidden': 'false'}) //change aria hidden when tooltip is active
+						.attr({'aria-hidden': 'false'}) //change aria hidden when tooltip is active
 						.css({
 							'top': y,
 							'left': x
@@ -76,24 +76,24 @@
 				.on('mouseout', function(event) {
 					if (!$(event.currentTarget).is(':focus') ) { // hide tooltip if current element is not focused
 						$tooltip
-              .attr({'aria-hidden': 'true'}) //change aria hidden when tooltip is inactive
+							.attr({'aria-hidden': 'true'}) //change aria hidden when tooltip is inactive
 							.removeClass('visible mouseover');
 					}
 				})
 				.on('blur', function(event) {
-				  if (!$tooltip.hasClass('mouseover') ) { // hide tooltip if mouse is not over the current element (Criteria 3)
-				  $tooltip
-		        .attr({'aria-hidden': 'true'})
-		        .removeClass('visible');
-				  }
+					if (!$tooltip.hasClass('mouseover') ) { // hide tooltip if mouse is not over the current element (Criteria 3)
+					$tooltip
+						.attr({'aria-hidden': 'true'})
+						.removeClass('visible');
+					}
 				})
-        .on('keyup', function(event) {
-          if(event.keyCode == ik_utils.keys.esc) { // hide when escape key is pressed (Criteria 4)
-            $tooltip
-              .attr({'aria-hidden': 'true'})
-              .removeClass('visible');
-            }
-        });
+				.on('keyup', function(event) {
+					if(event.keyCode == ik_utils.keys.esc) { // hide when escape key is pressed (Criteria 4)
+						$tooltip
+							.attr({'aria-hidden': 'true'})
+							.removeClass('visible');
+						}
+				});
 		}
 	};
 

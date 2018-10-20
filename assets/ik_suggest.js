@@ -36,10 +36,10 @@ var pluginName = "ik_suggest",
 
 		plugin.notify = $('<div/>') // add hidden live region to be used by screen readers
 			.addClass('ik_readersonly')
-	    .attr({
-	        'role': 'region',
-	        'aria-live': 'polite'
-	    });
+		.attr({
+			'role': 'region',
+			'aria-live': 'polite'
+		});
 
 		$elem = plugin.element
 			.attr({
@@ -49,7 +49,7 @@ var pluginName = "ik_suggest",
 			.on('focus', {'plugin': plugin}, plugin.onFocus)
 			.on('keydown', {'plugin': plugin}, plugin.onKeyDown) // add keydown event
 			.on('keyup', {'plugin': plugin}, plugin.onKeyUp) // add keyup event
-			.on('focusout', {'plugin': plugin}, plugin.onFocusOut);  // add focusout event
+			.on('focusout', {'plugin': plugin}, plugin.onFocusOut);	// add focusout event
 
 		plugin.list = $('<ul/>').addClass('suggestions');
 
@@ -70,7 +70,7 @@ var pluginName = "ik_suggest",
 
 		plugin = event.data.plugin;
 
-    //Initial Instructions provided when field recieves focus (Criteria 1)
+		//Initial Instructions provided when field recieves focus (Criteria 1)
 		plugin.notify.text(plugin.options.instructions);
 
 	};
@@ -123,27 +123,27 @@ var pluginName = "ik_suggest",
 		plugin = event.data.plugin;
 		$me = $(event.currentTarget);
 
-    //A country selection can be made using only the keyboard (Criteria 4)
-    switch (event.keyCode) {
-      case ik_utils.keys.down: // select next suggestion from list
-        selected = plugin.list.find('.selected');
-        if(selected.length) {
-            msg = selected.removeClass('selected').next().addClass('selected').text();
-        } else {
-            msg = plugin.list.find('li:first').addClass('selected').text();
-        }
-        //Announce Suggestions Present (Criteria 2)
-        plugin.notify.text(msg); // add suggestion text to live region to be read by screen reader
-        break;
-      case ik_utils.keys.up: // select previous suggestion from list
-        selected = plugin.list.find('.selected');
-        if(selected.length) {
-            msg = selected.removeClass('selected').prev().addClass('selected').text();
-        }
-        plugin.notify.text(msg);  // add suggestion text to live region to be read by screen reader
-        break;
-        //Announce Suggestions Present (Criteria 2)
-      default: // get suggestions based on user input
+		//A country selection can be made using only the keyboard (Criteria 4)
+		switch (event.keyCode) {
+			case ik_utils.keys.down: // select next suggestion from list
+				selected = plugin.list.find('.selected');
+				if(selected.length) {
+						msg = selected.removeClass('selected').next().addClass('selected').text();
+				} else {
+						msg = plugin.list.find('li:first').addClass('selected').text();
+				}
+				//Announce Suggestions Present (Criteria 2)
+				plugin.notify.text(msg); // add suggestion text to live region to be read by screen reader
+				break;
+			case ik_utils.keys.up: // select previous suggestion from list
+				selected = plugin.list.find('.selected');
+				if(selected.length) {
+						msg = selected.removeClass('selected').prev().addClass('selected').text();
+				}
+				plugin.notify.text(msg); // add suggestion text to live region to be read by screen reader
+				break;
+				//Announce Suggestions Present (Criteria 2)
+			default: // get suggestions based on user input
 				plugin.list.empty();
 
 				suggestions = plugin.getSuggestions(plugin.options.source, $me.val());
@@ -158,8 +158,8 @@ var pluginName = "ik_suggest",
 				} else {
 					plugin.list.hide();
 				}
-        break;
-    }
+				break;
+		}
 
 	};
 
@@ -218,7 +218,7 @@ var pluginName = "ik_suggest",
 		if (str.length >= len) {
 			for (var i = 0, l = arr.length; i < l ; i++) {
 				if (r.length > limit ) {
-          //if the items in the the box are greater than the defined min-limit, the instructions are provided when suggestions are available (Criteria 3)
+					//if the items in the the box are greater than the defined min-limit, the instructions are provided when suggestions are available (Criteria 3)
 					this.notify.text('Suggestions are available for this field. Use up and down arrows to select a suggestion and enter key to use it.');
 					break;
 				}
