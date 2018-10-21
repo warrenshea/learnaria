@@ -2,7 +2,7 @@
 
 	var pluginName = 'ik_slider',
 		defaults = {
-      'instructions': 'Use the right and left arrow keys to increase or decrease the slider value. ',
+			'instructions': 'Use the right and left arrow keys to increase or decrease the slider value. ',
 			'minValue': 0,
 			'maxValue': 100,
 			'nowValue': 0,
@@ -64,26 +64,26 @@
 			plugin.knob = $('<div/>')
 				.attr({
 					'id': id,
-          'tabindex': 0, // add this element to tab order (Criteria 1)
-          'role': 'slider', // assign role slider (Criteria 3: Set role slider so that announcements as slider (not text entry field))
-          'aria-valuemin': plugin.options.minValue, // set slider minimum value
-          'aria-valuemax': plugin.options.maxValue, // set slider maximum value
-          'aria-valuenow': plugin.options.minValue, // set slider current value
-          'aria-describedby': id + '_instructions' // add description */
+					'tabindex': 0, // add this element to tab order (Criteria 1)
+					'role': 'slider', // assign role slider (Criteria 3: Set role slider so that announcements as slider (not text entry field))
+					'aria-valuemin': plugin.options.minValue, // set slider minimum value
+					'aria-valuemax': plugin.options.maxValue, // set slider maximum value
+					'aria-valuenow': plugin.options.minValue, // set slider current value
+					'aria-describedby': id + '_instructions' // add description */
 				})
 				.addClass('ik_knob')
 				.on('focus', {'plugin': plugin}, plugin.onFocus)
-        .on('keydown', {'plugin': plugin}, plugin.onKeyDown)
+				.on('keydown', {'plugin': plugin}, plugin.onKeyDown)
 				.on('mousedown', {'plugin': plugin}, plugin.onMouseDown)
 				.on('mousemove', {'plugin': plugin}, plugin.onMouseMove)
 				.on('mouseup', {'plugin': plugin}, plugin.onMouseUp)
 				.on('mouseleave', function(){ setTimeout(plugin.onMouseUp, 100, { 'data': {'plugin': plugin} }) });
 
 		 $('<div/>') // add instructions for screen reader users
-		    .attr({'id': id + '_instructions'})
-		    .text(this.options.instructions)
-		    .addClass('ik_readersonly')
-		    .appendTo(this.element);
+				.attr({'id': id + '_instructions'})
+				.text(this.options.instructions)
+				.addClass('ik_readersonly')
+				.appendTo(this.element);
 
 			$('<div/>') // add slider track
 				.addClass('ik_track')
@@ -105,7 +105,7 @@
 
 		this.textfield.val(n);
 		this.options.nowValue = n;
-    this.knob.attr({'aria-valuenow': n}); //Criteria 4: Announce aria-valuenow
+		this.knob.attr({'aria-valuenow': n}); //Criteria 4: Announce aria-valuenow
 		this.updateDisplay(n); // update display
 	};
 

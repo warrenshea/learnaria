@@ -1,6 +1,6 @@
 var ik_utils = ik_utils || {};
 
-ik_utils.keys =  {
+ik_utils.keys =	{
 	'tab': 9,
 	'enter': 13,
 	'esc': 27,
