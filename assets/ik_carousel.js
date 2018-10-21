@@ -74,7 +74,7 @@
 
 				$me
 					.attr({'aria-hidden': 'true'}) // hide images from screen readers
-    			.css({'background-image': 'url(' + $src + ')'});
+					.css({'background-image': 'url(' + $src + ')'});
 
 				$('<li/>')
 					.on('click', {'plugin': plugin, 'slide': i}, plugin.gotoSlide)
@@ -119,7 +119,6 @@
 			plugin.timer = null;
 		}
 
-
 		plugin.timer = setInterval(plugin.gotoSlide, plugin.options.animationSpeed, {'data':{'plugin': plugin, 'slide': 'right'}});
 
 	};
@@ -134,9 +133,11 @@
 	Plugin.prototype.stopTimer = function (event) {
 
 		var plugin = event.data.plugin;
+
 		if (event.type === 'focusin') { //Criteria 4: Panels read aloud via aria-live: polite
 			plugin.element.attr({'aria-live': 'polite'});
 		}
+
 		clearInterval(plugin.timer);
 		plugin.timer = null;
 
@@ -159,7 +160,6 @@
 		$elem = plugin.element;
 		$active = $elem.children('.active');
 		index = $active.index();
-
 
 		if (typeof n === 'string') {
 			if(n === 'left') {
