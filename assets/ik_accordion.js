@@ -33,27 +33,38 @@
 		plugin = this;
 
 		$elem.attr({
-			'id': id
+			'id': id,
+			'role': 'region', // add the accordion to the landmarked regions
+			'aria-multiselectable': !this.options.autoCollapse // define if more than one panel can be expanded
 		}).addClass('ik_accordion');
 
-		this.headers = $elem.children('dt').each(function(i, el) {
-			var $me, $btn;
+		this.headers = $elem.children('dt')
+			.attr({'role': 'heading'}) // set heading role for each accordion header
+			.each(function(i, el) {
+				var $me, $btn;
 
-			$me = $(el);
-			$btn = $('<div/>').attr({
-					'id': id + '_btn_' + i
-				})
-				.addClass('button')
-				.html($me.html())
-				.on('click', {'plugin': plugin}, plugin.togglePanel);
+				$me = $(el);
+				$btn = $('<div/>').attr({
+						'id': id + '_btn_' + i,
+						'role': 'button', // (Criteria 2)
+						'aria-controls': id + '_panel_' + i, // associate button with corresponding panel
+						'aria-expanded': false, // toggle expanded state (Criteria 4)
+						'tabindex': 0 //add keyboard focus (Criteria 1)
+					})
+					.addClass('button')
+					.html($me.html())
+					.on('keydown', {'plugin': plugin}, plugin.onKeyDown) // enable keyboard navigation (Criteria 3)
+					.on('click', {'plugin': plugin}, plugin.togglePanel); // (Criteria 3)
 
-			$me.empty().append($btn); // wrap content of each header in an element with role button
-		});
+				$me.empty().append($btn); // wrap content of each header in an element with role button
+			});
 
 		this.panels = $elem.children('dd').each(function(i, el) {
 			var $me = $(this), id = $elem.attr('id') + '_panel_' + i;
 			$me.attr({
-				'id': id
+				'id': id,
+				'role': 'region', // add role region to each panel
+				'tabindex': 0 // add panels into the tab order (Criteria 5)
 			});
 		}).hide();
 
@@ -75,7 +86,7 @@
 		$me = $(event.target);
 		$panel = $me.parent('dt').next();
 
-		if(plugin.options.autoCollapse) { // expand current panel and collapse the rest
+ 		if(plugin.options.autoCollapse) { // expand current panel and collapse the rest (open one at a time)
 
 			plugin.headers.each(function(i, el) {
 				var $hdr, $btn;
@@ -85,18 +96,87 @@
 
 				if($btn[0] != $(event.currentTarget)[0]) {
 					$btn.removeClass('expanded');
+					$btn.attr({
+						'aria-disabled': true,
+						'aria-expanded': true // (Criteria 4)
+					});
 					$hdr.next().slideUp(plugin.options.animationSpeed);
+					$hdr.next().attr({'aria-expanded': false});
 				} else {
 					$btn.addClass('expanded');
+					$btn.attr({
+						'aria-disabled': false,
+						'aria-expanded': true // (Criteria 4)
+					});
 					$hdr.next().slideDown(plugin.options.animationSpeed);
+					$hdr.next().attr({'aria-expanded': true});
 				}
 			});
 
-		} else { // toggle current panel depending on the state
+		} else { // toggle current panel depending on the state (open multiple at a time)
 
 			isVisible = !!$panel.is(':visible');
 			$panel.slideToggle({ duration: plugin.options.animationSpeed });
+			if (isVisible) {
+				$me.removeClass('expanded');
+				$me.attr({
+					'aria-disabled': false,
+					'aria-expanded': false // (Criteria 4)
+				});
+				$panel.attr({'aria-expanded': false});
+			} else {
+				$me.addClass('expanded');
+				$me.attr({
+					'aria-disabled': false,
+					'aria-expanded': true // (Criteria 4)
+				});
+				$panel.attr({'aria-expanded': true});
+			}
 
+		}
+	};
+
+	/**
+	 * Handles keydown event on header button.
+	 *
+	 * @param {Object} event - Keyboard event.
+	 * @param {object} event.data - Event data.
+	 * @param {object} event.data.plugin - Reference to plugin.
+	 */
+	Plugin.prototype.onKeyDown = function (event) {
+
+		var $me, $header, plugin, $elem, $current, ind;
+
+		$me = $(event.target);
+		$header = $me.parent('dt');
+		plugin = event.data.plugin;
+		$elem = $(plugin.element);
+
+		switch (event.keyCode) { //Criteria 6
+
+			// toggle panel by pressing enter key, or spacebar
+			case ik_utils.keys.enter:
+			case ik_utils.keys.space:
+				event.preventDefault();
+				event.stopPropagation();
+				plugin.togglePanel(event);
+				break;
+
+			// use up arrow to jump to the previous header
+			case ik_utils.keys.up:
+				ind = plugin.headers.index($header);
+				if (ind > 0) {
+					plugin.headers.eq(--ind).find('.button').focus();
+				}
+				break;
+
+			// use down arrow to jump to the next header
+			case ik_utils.keys.down:
+				ind = plugin.headers.index($header);
+				if (ind < plugin.headers.length - 1) {
+					plugin.headers.eq(++ind).find('.button').focus();
+				}
+				break;
 		}
 	};
 
