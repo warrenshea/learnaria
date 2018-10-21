@@ -36,15 +36,13 @@ var pluginName = "ik_suggest",
 
 		plugin.notify = $('<div/>') // add hidden live region to be used by screen readers
 			.addClass('ik_readersonly')
-		.attr({
-			'role': 'region',
-			'aria-live': 'polite'
-		});
+			.attr({
+				'role': 'region',
+				'aria-live': 'polite'
+			});
 
 		$elem = plugin.element
-			.attr({
-				'autocomplete': 'off'
-			})
+			.attr({'autocomplete': 'off'})
 			.wrap('<span class="ik_suggest"></span>')
 			.on('focus', {'plugin': plugin}, plugin.onFocus)
 			.on('keydown', {'plugin': plugin}, plugin.onKeyDown) // add keydown event
