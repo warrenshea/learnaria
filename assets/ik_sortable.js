@@ -3,7 +3,7 @@
 	var pluginName = "ik_sortable",
 		modifier = navigator.platform.indexOf('Mac') > -1 ? 'Command' : 'Control',
 		defaults = {
-			'instructions': 'Use arrow keys to select a list item,  ' + modifier + ' + arrow keys to move it to a new position.'
+			'instructions': 'Use arrow keys to select a list item, ' + modifier + ' + arrow keys to move it to a new position.'
 		};
 
 	function Plugin( element, options ) {
@@ -35,7 +35,7 @@
 			.addClass('ik_readersonly') // hide element from visual display
 			.attr({
 				'id': id + '_instructions', //Criteria 1
-				'aria-hidden': 'true'  // hide element from screen readers to prevent it from being read twice
+				'aria-hidden': 'true' // hide element from screen readers to prevent it from being read twice
 			})
 			.appendTo($elem);
 

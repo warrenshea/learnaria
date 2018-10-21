@@ -74,7 +74,7 @@ var pluginName = "ik_suggest",
 	};
 
 	/**
-	 * Handles kedown event on text field.
+	 * Handles keydown event on text field.
 	 *
 	 * @param {object} event - Keyboard event.
 	 * @param {object} event.data - Event data.

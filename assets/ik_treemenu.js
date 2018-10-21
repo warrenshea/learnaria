@@ -45,7 +45,7 @@
 			.addClass('ik_readersonly') // hide element from visual display
 			.attr({
 				'id': id + '_instructions',
-				'aria-hidden': 'true'  // hide element from screen readers to prevent it from being read twice
+				'aria-hidden': 'true' // hide element from screen readers to prevent it from being read twice
 			})
 			.appendTo($elem);
 
@@ -59,7 +59,7 @@
 			.find('ul:first')	// set topmost ul element as a tree container
 			.attr({
 				'id': id,
-				'role': 'tree', // assign tree role  (Criteria 2)
+				'role': 'tree', // assign tree role (Criteria 2)
 				'aria-labelledby': id + '_title' // label with tree title
 			});
 
