@@ -79,7 +79,7 @@
 				.on('mouseup', {'plugin': plugin}, plugin.onMouseUp)
 				.on('mouseleave', function(){ setTimeout(plugin.onMouseUp, 100, { 'data': {'plugin': plugin} }) });
 
-		 $('<div/>') // add instructions for screen reader users
+		  $('<div/>') // add instructions for screen reader users
 				.attr({'id': id + '_instructions'})
 				.text(this.options.instructions)
 				.addClass('ik_readersonly')
